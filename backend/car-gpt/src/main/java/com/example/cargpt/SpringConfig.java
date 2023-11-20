@@ -6,9 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import com.example.cargpt.customer.repository.*;
 import com.example.cargpt.customer.service.*;
 
-import javax.persistence.EntityManager;
-import javax.sql.DataSource;
-
 @Configuration
 public class SpringConfig {
     //spring data jpa가 생성한 빈을 주입받는다.
@@ -19,8 +16,18 @@ public class SpringConfig {
         this.customerRepository = customerRepository;
     }
 
+
     @Bean
     public CustomerService customerService() {
         return new CustomerService(customerRepository);//container에 등록되어 있는 빈을 주입
     }
+
+
+    /* MemoryRepository 테스트용
+    @Bean
+    public CustomerRepository customerRepository() {
+        return new MemoryCustomerRepository();
+    }
+    */
+
 }

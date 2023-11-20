@@ -1,6 +1,9 @@
 package com.example.cargpt.customer.dto;
 
+import lombok.Data;
+
 // 웹 등록 화면에서 데이터를 전달 받을 폼 객체
+@Data
 public class CustomerForm {
     private String name; //form으로 넘어온 데이터를 넣어준다(spring mvc의 기능)
 

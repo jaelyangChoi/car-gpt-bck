@@ -1,19 +1,18 @@
 package com.example.cargpt.customer.repository;
 
-import org.springframework.stereotype.Repository;
 import com.example.cargpt.customer.domain.Customer;
 
 import java.util.*;
 
 
-public class MemoryMemberRepository implements MemberRepository {
+public class MemoryCustomerRepository implements CustomerRepository {
     //일단 동시성 문제 배제
     private static Map<String, Customer> store = new HashMap<>();
-    private static long sequence = 0L;
+//    private static long sequence = 0L;
 
     @Override
     public Customer save(Customer customer) {
-        customer.setCsmrMgmtNo(++sequence);
+//        customer.setCsmrMgmtNo(++sequence);
         store.put(customer.getCsmrMgmtNo(), customer);
         return customer;
     }

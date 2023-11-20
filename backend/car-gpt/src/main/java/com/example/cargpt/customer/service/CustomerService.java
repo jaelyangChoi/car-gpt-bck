@@ -11,13 +11,13 @@ import java.util.Optional;
 public class CustomerService {
     private final CustomerRepository customerRepository;
 
-    @Autowired
     public CustomerService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
 
     /**
      * 전체 고객 리스트 조회
+     *
      * @return
      */
     public List<Customer> findCustomers() {
@@ -26,7 +26,8 @@ public class CustomerService {
 
     /**
      * 고객 정보 조회
-     * @param memberId
+     *
+     * @param csmrMgmtNo
      * @return
      */
     public Optional<Customer> findOne(String csmrMgmtNo) {
@@ -36,6 +37,7 @@ public class CustomerService {
 
     /**
      * 고객 등록
+     *
      * @param customer
      * @return
      */
@@ -47,6 +49,7 @@ public class CustomerService {
 
     /**
      * 고객 등록 유효성 검증
+     *
      * @param customer
      */
     private void validateDuplicateMember(Customer customer) {
