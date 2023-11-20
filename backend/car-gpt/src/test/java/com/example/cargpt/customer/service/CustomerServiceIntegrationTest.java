@@ -1,6 +1,7 @@
 package com.example.cargpt.customer.service;
 
 import com.example.cargpt.customer.domain.Customer;
+import com.example.cargpt.customer.domain.CustomerInfo;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ class CustomerServiceIntegrationTest {
         List<Customer> customers = customerService.findCustomers();
 
         //then
-        System.out.println(customers.get(0).getCsmrMgmtNo());
+        customers.forEach(c->System.out.println(c.getCsmrMgmtNo() + "(" + c.getCsmrNm() + ")"));
         Assertions.assertThat(customers.size()).isEqualTo(1);
     }
 
@@ -69,7 +70,7 @@ class CustomerServiceIntegrationTest {
         */
         String savedCsmrMgmtNo = "A202311190000001";
         //when
-        Customer foundCustomer = customerService.findOne(savedCsmrMgmtNo).get();
+        CustomerInfo foundCustomer = customerService.findOne(savedCsmrMgmtNo).get();
 
         //then
         System.out.println(foundCustomer.getCsmrMgmtNo());

@@ -2,6 +2,7 @@ package com.example.cargpt.customer.controller;
 
 
 import com.example.cargpt.customer.domain.Customer;
+import com.example.cargpt.customer.domain.CustomerInfo;
 import com.example.cargpt.customer.service.CustomerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class CustomerController {
     public List<Customer> CustomerList() {
         log.debug("@GetMapping(\"/customers\")");
         List<Customer> customers = customerService.findCustomers();
-        log.debug("customers : {}", customers.toString());
+        log.debug("customers size : {}", customers.size());
 
         return customers;
     }
@@ -41,9 +42,9 @@ public class CustomerController {
      * @return
      */
     @GetMapping("/{csmrMgmtNo}")
-    public Customer CustomerInfo(@PathVariable String csmrMgmtNo) {
+    public CustomerInfo CustomerInfo(@PathVariable String csmrMgmtNo) {
         log.debug("@GetMapping(\"/customers/{csmrMgmtNo}\")");
-        Customer customer = customerService.findOne(csmrMgmtNo).get();
+        CustomerInfo customer = customerService.findOne(csmrMgmtNo).get();
         log.debug("customer : {}", customer.toString());
 
         return customer;

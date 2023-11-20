@@ -10,16 +10,18 @@ import com.example.cargpt.customer.service.*;
 public class SpringConfig {
     //spring data jpa가 생성한 빈을 주입받는다.
     private final CustomerRepository customerRepository;
+    private final CustomerInfoRepository customerInfoRepository;
 
     @Autowired
-    public SpringConfig(CustomerRepository customerRepository) {
+    public SpringConfig(CustomerRepository customerRepository, CustomerInfoRepository customerInfoRepository) {
         this.customerRepository = customerRepository;
+        this.customerInfoRepository = customerInfoRepository;
     }
 
 
     @Bean
     public CustomerService customerService() {
-        return new CustomerService(customerRepository);//container에 등록되어 있는 빈을 주입
+        return new CustomerService(customerRepository, customerInfoRepository);//container에 등록되어 있는 빈을 주입
     }
 
 

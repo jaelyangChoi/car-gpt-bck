@@ -1,8 +1,10 @@
 package com.example.cargpt.customer.service;
 
-import org.springframework.transaction.annotation.Transactional;
 import com.example.cargpt.customer.domain.Customer;
 import com.example.cargpt.customer.repository.CustomerRepository;
+import org.springframework.transaction.annotation.Transactional;
+import com.example.cargpt.customer.domain.CustomerInfo;
+import com.example.cargpt.customer.repository.CustomerInfoRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,9 +12,11 @@ import java.util.Optional;
 @Transactional //JPA를 쓰려면 Transaction이 있어야 함 (데이터 저장, 변경할 때 필요)
 public class CustomerService {
     private final CustomerRepository customerRepository;
+    private final CustomerInfoRepository customerInfoRepository;
 
-    public CustomerService(CustomerRepository customerRepository) {
+    public CustomerService(CustomerRepository customerRepository, CustomerInfoRepository customerInfoRepository) {
         this.customerRepository = customerRepository;
+        this.customerInfoRepository = customerInfoRepository;
     }
 
     /**
@@ -30,8 +34,8 @@ public class CustomerService {
      * @param csmrMgmtNo
      * @return
      */
-    public Optional<Customer> findOne(String csmrMgmtNo) {
-        return customerRepository.findByCsmrMgmtNo(csmrMgmtNo);
+    public Optional<CustomerInfo> findOne(String csmrMgmtNo) {
+        return customerInfoRepository.findByCsmrMgmtNo(csmrMgmtNo);
     }
 
 
@@ -41,9 +45,9 @@ public class CustomerService {
      * @param customer
      * @return
      */
-    public String join(Customer customer) {
+    public String join(CustomerInfo customer) {
         validateDuplicateMember(customer); //같은 이름이 있는 중복 회원x
-        customerRepository.save(customer);
+        customerInfoRepository.save(customer);
         return customer.getCsmrMgmtNo();
     }
 
@@ -52,8 +56,8 @@ public class CustomerService {
      *
      * @param customer
      */
-    private void validateDuplicateMember(Customer customer) {
-        customerRepository.findByCsmrMgmtNo(customer.getCsmrMgmtNo())
+    private void validateDuplicateMember(CustomerInfo customer) {
+        customerInfoRepository.findByCsmrMgmtNo(customer.getCsmrMgmtNo())
                 .ifPresent(m -> {
                     throw new IllegalStateException("이미 존재하는 고객관리번호입니다.");
                 });
